@@ -16,4 +16,24 @@ class VendorTest < Minitest::Test
     assert_equal "Rocky Mountain Fresh", vendor.name
     assert_equal ({}), vendor.inventory
   end
+
+  def test_it_can_check_item_inventory
+    vendor = Vendor.new("Rocky Mountain Fresh")
+
+    item1 = Item.new({name: 'Peach', price: "$0.75"})
+    item2 = Item.new({name: 'Tomato', price: '$0.50'})
+
+    assert_equal 0, vendor.check_stock(item1)
+  end
+
+  def test_it_can_stock_item
+    vendor = Vendor.new("Rocky Mountain Fresh")
+
+    item1 = Item.new({name: 'Peach', price: "$0.75"})
+    item2 = Item.new({name: 'Tomato', price: '$0.50'})
+
+    expected = {item1 => 30}
+    
+    assert_equal expected,  vendor.stock(item1, 30)
+  end
 end
